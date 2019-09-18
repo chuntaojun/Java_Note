@@ -30,14 +30,14 @@
         - 类似Java中的HashMap的数据结构形式，解决hash冲突的办法是链地址法
         - value：存储在redisObject对象中，redisObject中的type字段指明了value对象的类型；ptr字段指向对象所在的地址；encoding字段存储了对象内部编码；lru字段记录的是对象的最后一次被命令程序访问的时间（存在内存淘汰机制，因此需要对数据进行lru统计）；refcount字段记录的是该字段被引用的次数，主要在于对象的引用计数和内存回收，当refcount为0时，对象占用的内存会被释放，对于被多次使用的对象成为共享对象（目前仅支持整数值的字符串对象）
             - 通常情况下只有一个dictht是有值的，如果两个dictht有值，那么表明目前正在rehash
-            - ![](https://github.com/chuntaojun/Java_Note/blob/master/db/redis/image/redis-2.png)
+            - ![](https://github.com/chuntaojun/Java_Note/blob/master/db/redis/image/redis-2.jpg)
         - 数据是如何存储的：http://zhangtielei.com/posts/blog-redis-dict.html
     - jemalloc：内存分配器
         - 将内存空间划分为小、大、巨大三个范围
         - 在jemalloc中，某档位上可分配的内存资源用bin来管理
         - 内存分配可分为四类：内部使用、用于small allocation、用于large allocation、用于huge allocation（分配出的内存全部交付使用）
             - mall（Large） allocation：确定请求大小对应到哪一档位上，small allocation被分成44档，每一档对应一种run，每种run专门替换此分档的内存块（region）
-                - ![](https://github.com/chuntaojun/Java_Note/blob/master/db/redis/image/redis-3.png)
+                - ![](https://github.com/chuntaojun/Java_Note/blob/master/db/redis/image/redis-3.jpg)
             - 内部使用：使用base_alloc，只申请，不释放内存
             - 设计思路
                 - 减少多线程竞争。例如引入tcache（ 线程独有的内存仓库），以及线程均分布到若干个 arena（几个线程共享的内存仓库）。
