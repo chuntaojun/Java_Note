@@ -15,7 +15,7 @@
     - 索引和数据是分开的，数据部分以数组的形式单独存放，主键Id索引里面，存放的是每个数据的位置；由于主键id是hash索引，因此索引上的key并不是有序的
     - 堆组织表，对于数据的插入，memory是找到空位就可以执行插入操作，如果数据位置发生了变化，内存表需要修改所有的索引信息
     - 也是支持B-Tree的
-		- ![](https://github.com/chuntaojun/Java_Note/blob/master/db/mysql/image/mysql-2.png))
+		- ![](https://github.com/chuntaojun/Java_Note/blob/master/db/mysql/image/mysql-2.png)
     - 存在锁细粒度的问题：内存表不支持行锁，只支持表锁，因为如果有数据更新，会将整张表锁住，并发能力不强
     - 数据持久化问题：数据库重启后，内存表都会被清空
 - Innodb引擎
